@@ -1,1 +1,1 @@
-***Add newline seperated list of repositories to be transfered here***
+**Just Put the names here**
