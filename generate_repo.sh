@@ -14,11 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/
 
-Copyright 2022 K. Younger
-'
-
-:'
 https://api.github.com/repos/{template_org_name}/{template_repo}/generate
+
+
+bash generate_repo.sh ZipCodeCore ZCW-Java8-0
+
+Copyright 2022 K. Younger
 '
 
 function git_repo_generate(){ 
@@ -34,3 +35,5 @@ function git_repo_generate(){
 repos=$( cat ./repos.txt) 
 for repo in $repos; do (git_repo_generate "$repo" "$1" "$2"); done
 
+# gh repo create ZCW-Java8-0/Kafka3-Data --public --template ZipCodeCore/Kafka3-Data
+# worked.
