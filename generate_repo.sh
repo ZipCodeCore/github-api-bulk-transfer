@@ -1,39 +1,12 @@
 #!/bin/bash
-
-: '
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/
-
-https://api.github.com/repos/{template_org_name}/{template_repo}/generate
-
-
-bash generate_repo.sh ZipCodeCore ZCW-Java8-0
-
-Copyright 2022 K. Younger
-'
-
-function git_repo_generate(){ 
-  curl -vL \
-  	-u "$2:${GITHUB_SECRET}" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/vnd.github.v3+json" \
-    -X POST https://api.github.com/repos/$2/$1/generate \
-    -d '{"new_owner":"'$3'"}' \
-    | jq .
-}
-
 repos=$( cat ./repos.txt) 
-for repo in $repos; do (git_repo_generate "$repo" "$1" "$2"); done
+for repo in $repos 
+do 
+gh repo create ${2}/${repo} --public --template ${1}/${repo} 
+done
 
-# gh repo create ZCW-Java8-0/Kafka3-Data --public --template ZipCodeCore/Kafka3-Data
-# worked.
+#  $ gh repo create ZCW-Java8-0/Kafka3-Data --public --template ZipCodeCore/Kafka3-Data
+#  $ gh repo create ${2}/${repo} --public --template ${1}/${repo}
+# worked(!).
+# so,
+# bash ./generate_repo.sh ZipCodeCore ZCW-Java8-0
